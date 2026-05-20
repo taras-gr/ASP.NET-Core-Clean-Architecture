@@ -5,7 +5,10 @@
     <Project Path="GloboTicket.TicketManagement.Application/GloboTicket.TicketManagement.Application.csproj" />
     <Project Path="GloboTicket.TicketManagement.Domain/GloboTicket.TicketManagement.Domain.csproj" />
   </Folder>
-  <Folder Name="/src/Infrastructure/" />
+  <Folder Name="/src/Infrastructure/">
+    <Project Path="GloboTicket.TicketManagement.Infrastructure/GloboTicket.TicketManagement.Infrastructure.csproj" Id="c7c139f6-f9ba-4744-b6d4-2cdd5fdc859f" />
+    <Project Path="GloboTicket.TicketManagement.Persistence/GloboTicket.TicketManagement.Persistence.csproj" Id="cbf0e93b-a291-4be6-a504-79a8883d44a9" />
+  </Folder>
   <Folder Name="/src/UI/" />
   <Folder Name="/test/" />
 </Solution>
