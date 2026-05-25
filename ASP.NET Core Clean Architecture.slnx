@@ -12,5 +12,9 @@
     <Project Path="GloboTicket.TicketManagement.Persistence/GloboTicket.TicketManagement.Persistence.csproj" Id="cbf0e93b-a291-4be6-a504-79a8883d44a9" />
   </Folder>
   <Folder Name="/src/UI/" />
-  <Folder Name="/test/" />
+  <Folder Name="/test/">
+    <Project Path="GloboTicket.TicketManagement.API.IntegrationTests/GloboTicket.TicketManagement.API.IntegrationTests.csproj" Id="683c6315-3d3c-453d-8394-d5924aad6372" />
+    <Project Path="GloboTicket.TicketManagement.Application.UnitTests/GloboTicket.TicketManagement.Application.UnitTests.csproj" Id="5252f8c5-2d0e-4291-9c23-17213ed2c426" />
+    <Project Path="GloboTicket.TicketManagement.Persistence.IntegrationTests/GloboTicket.TicketManagement.Persistence.IntegrationTests.csproj" Id="f24cbfc1-140f-4e5a-a9ce-c5c6bf7eb9ea" />
+  </Folder>
 </Solution>
