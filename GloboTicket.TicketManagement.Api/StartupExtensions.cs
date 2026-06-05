@@ -1,9 +1,14 @@
-﻿using GloboTicket.TicketManagement.Api.Services;
+﻿using GloboTicket.TicketManagement.Api.Middleware;
+using GloboTicket.TicketManagement.Api.Services;
 using GloboTicket.TicketManagement.Application;
 using GloboTicket.TicketManagement.Application.Contracts;
+using GloboTicket.TicketManagement.Identity;
+using GloboTicket.TicketManagement.Identity.Models;
 using GloboTicket.TicketManagement.Infrastructure;
 using GloboTicket.TicketManagement.Persistence;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace GloboTicket.TicketManagement.Api;
 
@@ -15,6 +20,7 @@ public static class StartupExtensions
         builder.Services.AddApplicationServices();
         builder.Services.AddInfrastructureServices(builder.Configuration);
         builder.Services.AddPersistenceServices(builder.Configuration);
+        builder.Services.AddIdentityServices(builder.Configuration);
 
         builder.Services.AddScoped<ILoggedInUserService, LoggedInUserService>();
 
@@ -32,6 +38,7 @@ public static class StartupExtensions
             .AllowAnyHeader()
             .AllowCredentials()));
 
+        builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
         return builder.Build();
@@ -39,6 +46,15 @@ public static class StartupExtensions
 
     public static WebApplication ConfigurePipeline(this WebApplication app)
     {
+        app.MapIdentityApi<ApplicationUser>();
+
+        app.MapPost("/Logout", async (ClaimsPrincipal user,
+            SignInManager<ApplicationUser> signInManager) =>
+        {
+            await signInManager.SignOutAsync();
+            return TypedResults.Ok();
+        });
+
         app.UseCors("open");
 
         if (app.Environment.IsDevelopment())
@@ -46,6 +62,8 @@ public static class StartupExtensions
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        app.UseCustomExceptionHandler();
 
         app.UseHttpsRedirection();
         app.MapControllers();
